@@ -38,7 +38,7 @@ class forms{
 <div class="row align-items-md-stretch">
    <div class="col-md-6">
       <div class="h-100 p-5 bg-body-tertiary border rounded-3">
-         <form action="" method="POST">
+         <form action="sendmail.php" method="POST">
             <div class="mb-3 form-group">
                <label for="exampleInputEmail1">Email address</label>
                <input type="email" name="email_address" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
