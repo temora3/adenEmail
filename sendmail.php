@@ -43,7 +43,7 @@ ICS 2.2');
     // echo 'Email sent successfully!';
 } catch (Exception $e) {?>
     <script>
-            alert("Error occured and email couldnt be set "<?php $mail->ErrorInfo;?>);
+            alert("Error occured and email could not be set "<?php $mail->ErrorInfo;?>);
     </script>
     <?php
 }
