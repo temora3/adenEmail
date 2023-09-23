@@ -27,7 +27,7 @@ try {
 You requested an account on ICS 2.2.<br>
 In order to use this account, you need to <a href="localhost/aden/tokenCheck.php">Click Here</a> to complete the registration process.<br>
 Regards,<br>
-Systems Admin<br>
+Systems Administrator<br>
 ICS 2.2');
 
 
