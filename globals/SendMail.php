@@ -1,50 +1,54 @@
 <?php
-class SendMail{
-	public function SendeMail($details=array(), $conf){
-		if(!empty($details["sendToEmail"]) & !empty($details["sendToName"]) & !empty($details["emailSubjectLine"]) & !empty($details["emailMessage"])){
-			$headers = array(
-				'Authorization: Bearer SG.sVr2vDzrSr6SwGLMLyS-SQ.YL4wSzwUMG4aXjbtCPrwK1nTGwy0yf5_Htyu_s4wNfY',
-				'Content-Type: application/json'
-			);
 
-			// print_r($details);
-			// die('me');
-			$data = array(
-				"personalizations" => array(
-					array(
-						"to" => array(
-							array(
-								"email" => $details["sendToEmail"],
-								"name" => $details["sendToName"]
-							)
-						)
-					)
-				),
-				"from" => array(
-					"email" => $conf["au_email_address"],
-					"name" => $conf["site_name"]
-				),
-				"subject" => $details["emailSubjectLine"],
-				"content" => array(
-					array(
-						"type" => "text/html",
-						"value" => nl2br($details["emailMessage"])
-					)
-				)
-			);
-			
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, "https://api.sendgrid.com/v3/mail/send");
-			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			$response = curl_exec($ch);
-			curl_close($ch);
-		}else{
-			print_r($details);
-			die("Error: Some details are missing.");
-		}
-		}
-	}
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer-master/src/PHPMailer.php';
+require 'PHPMailer-master/src/SMTP.php';
+require 'PHPMailer-master/src/Exception.php';
+
+$mail = new PHPMailer(true);
+
+require_once "ClassAutoLoad.php";
+
+        $OBJ_Layout->headers($conf);
+
+try {
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'icsdtest2023@gmail.com'; 
+    $mail->Password = 'jzqh mcgr ggzd kkqd'; 
+    $mail->SMTPSecure = 'tls'; 
+    $mail->Port = 587; 
+
+    $mail->setFrom('icsdtest2023@gmail.com', 'ICS 2.2');
+    $mail->addAddress($_POST["email_address"]);
+    $mail->Subject = 'Welcome to ICS 2.2!Account Verification';
+    $mail->Body = nl2br('Hello User,<br>
+You requested an account on ICS 2.2.<br>
+In order to use this account, you need to <a href="localhost/aden/tokenCheck.php">Click Here</a> to complete the registration process.<br>
+Regards,<br>
+Systems Admin<br>
+ICS 2.2');
+
+
+    $mail->isHTML(true); 
+
+    if($mail->send()){
+    ?>
+    <script>
+            alert("Authentication Email sent successfully!'");
+    </script>
+    <?php
+    };
+    // echo 'Email sent successfully!';
+} catch (Exception $e) {?>
+    <script>
+            alert("Error occured and email couldnt be set "<?php $mail->ErrorInfo;?>);
+    </script>
+    <?php
+}
+?>
