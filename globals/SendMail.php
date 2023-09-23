@@ -11,10 +11,6 @@ require 'PHPMailer-master/src/Exception.php';
 
 $mail = new PHPMailer(true);
 
-require_once "ClassAutoLoad.php";
-
-        $OBJ_Layout->headers($conf);
-
 try {
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
