@@ -13,7 +13,7 @@ $mail = new PHPMailer(true);
 
 require_once "ClassAutoLoad.php";
 
-        $OBJ_Layout->headers($conf);
+    $OBJ_Layout->headers($conf);
 
 try {
     $mail->isSMTP();
