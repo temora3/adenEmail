@@ -47,11 +47,13 @@ ICS 2.2');
 
     $mail->isHTML(true); 
 
-    if($mail->send();
+    if($mail->send()){
+
+    
       echo'Email sent successfully!';
       }
       else {
-  echo'Email could not be sent.Error:' . $mail-> ErrorInfo;    
+  echo'Email could not be sent.Error:' . $mail-> ErrorInfo;  }  
 } catch (Exception $e){
-    echo 'Email could not be sent.Error: '. $mail->ErrorInfo;
+    echo 'Email could not be sent.Error: '. $mail->ErrorInfo;}
 ?>
